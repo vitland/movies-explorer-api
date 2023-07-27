@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { SECRET } = require('../config');
 const { ForbiddenError } = require('../errors/forbiddenError');
+
 const auth = (req, res, next) => {
   const token = req.cookies.jwt;
   if (!token) {
