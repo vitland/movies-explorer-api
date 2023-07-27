@@ -1,4 +1,4 @@
-const { celebrate, Joi, Segments } = require('celebrate');
+const { celebrate, Joi } = require('celebrate');
 
 const addMovieValidation = celebrate({
   body: Joi.object().keys({
@@ -20,11 +20,34 @@ const addMovieValidation = celebrate({
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
   }),
-  [Segments.QUERY]: { user: Joi.object().keys({ _id: Joi.string().required().length(24) }) },
 });
-
 const removeMovieValidation = celebrate({
-  params: Joi.object().keys({ _id: Joi.string().required().length(24) }),
+  params: Joi.object().keys({ _id: Joi.string().hex().required() }),
+});
+const updateUserInfoValidation = celebrate({
+  body: Joi.object().keys({
+    name: Joi.string().required().min(2),
+    email: Joi.string().required().email().min(2),
+  }),
+});
+const createUserInfoValidation = celebrate({
+  body: Joi.object().keys({
+    email: Joi.string().required().email(),
+    name: Joi.string().required().min(2),
+    password: Joi.string().required().min(8),
+  }),
+});
+const signinInfoValidation = celebrate({
+  body: Joi.object().keys({
+    email: Joi.string().required().email(),
+    password: Joi.string().required().min(8),
+  }),
 });
 
-module.exports = { addMovieValidation, removeMovieValidation };
+module.exports = {
+  addMovieValidation,
+  removeMovieValidation,
+  updateUserInfoValidation,
+  createUserInfoValidation,
+  signinInfoValidation,
+};
