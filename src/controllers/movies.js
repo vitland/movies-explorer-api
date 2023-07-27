@@ -4,7 +4,8 @@ const { ForbiddenError } = require('../errors/forbiddenError');
 
 const getMovies = async (req, res, next) => {
   try {
-    const movies = await Movie.find({});
+    const { _id } = req.user;
+    const movies = await Movie.find({ owner: _id });
     if (!movies) {
       throw new NotFoundError('Фильмы не найдены');
     }
@@ -32,10 +33,10 @@ const removeMovie = async (req, res, next) => {
     if (!movie) {
       throw new NotFoundError('Фильм не найден');
     }
-    if (userId !== movie.owner) {
+    if (userId !== movie.owner.toString()) {
       throw new ForbiddenError('Нельзя удалить фильм');
     }
-    movie.deleteOne();
+    await movie.deleteOne();
     return res.send({ data: movie });
   } catch (e) {
     return next(e);
