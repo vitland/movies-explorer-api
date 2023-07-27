@@ -14,9 +14,8 @@ const errorsHandler = (err, req, res, next) => {
     return res.status(400).send({ message: err.message });
   }
   if (isCelebrateError(err)) {
-    // console.log(req);
-    const errorBody = err.details.get('body');
-    const { details: [{ message }] } = errorBody;
+    const error = err.details.get('body') ? err.details.get('body') : err.details.get('params');
+    const { details: [{ message }] } = error;
     return res.status(400).send({ message });
   }
   if (err.name === 'CastError') {

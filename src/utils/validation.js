@@ -22,7 +22,7 @@ const addMovieValidation = celebrate({
   }),
 });
 const removeMovieValidation = celebrate({
-  params: Joi.object().keys({ _id: Joi.string().hex().required() }),
+  params: Joi.object().keys({ _id: Joi.string().hex().required().length(24).message('Данные не верны') }),
 });
 const updateUserInfoValidation = celebrate({
   body: Joi.object().keys({
