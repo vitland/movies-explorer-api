@@ -28,8 +28,10 @@ const addMovie = async (req, res, next) => {
 const removeMovie = async (req, res, next) => {
   try {
     const { _id } = req.params;
+    console.log(req.params);
     const userId = req.user._id;
-    const movie = await Movie.findById(_id);
+    console.log(_id);
+    const movie = await Movie.findById({_id});
     if (!movie) {
       throw new NotFoundError('Фильм не найден');
     }

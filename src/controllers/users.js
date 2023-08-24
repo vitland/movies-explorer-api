@@ -51,7 +51,7 @@ const signInUser = async (req, res, next) => {
     const token = await jwt.sign({ _id: user._id }, SECRET, { expiresIn: '7d' });
     res
       .cookie('jwt', token, { maxAge: 604800000, sameSite: true, httpOnly: true })
-      .send({ message: 'Авторизирован' })
+      .send({ message: 'Авторизирован',data: user })
       .end();
   } catch (e) {
     next(e);

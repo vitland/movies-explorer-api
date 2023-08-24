@@ -23,12 +23,10 @@ const movieSchema = new Schema({
     type: String,
     require: [true, 'Поле должно быть заполнено'],
   },
-  image: {
-    type: String,
-    require: [true, 'Поле должно быть заполнено'],
-    validate: {
-      validator: (str) => validator.isURL(str),
-    },
+  image: {url: {
+      type: String,
+      require: [true, 'Поле должно быть заполнено'],
+    }
   },
   trailerLink: {
     type: String,
@@ -40,9 +38,6 @@ const movieSchema = new Schema({
   thumbnail: {
     type: String,
     require: [true, 'Поле должно быть заполнено'],
-    validate: {
-      validator: (str) => validator.isURL(str),
-    },
   },
   owner: {
     type: Schema.Types.ObjectId,
@@ -57,7 +52,7 @@ const movieSchema = new Schema({
     type: String,
     require: [true, 'Поле должно быть заполнено'],
   },
-  movieId: {
+  id: {
     type: Number,
     require: [true, 'Поле должно быть заполнено'],
   },
