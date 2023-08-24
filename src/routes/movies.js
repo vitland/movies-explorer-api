@@ -3,7 +3,7 @@ const { addMovieValidation, removeMovieValidation } = require('../utils/validati
 const { getMovies, addMovie, removeMovie } = require('../controllers/movies');
 
 router.get('/', getMovies);
-router.post('/', addMovieValidation, addMovie);
-router.delete('/:_id', removeMovieValidation, removeMovie);
+router.post('/', addMovie);
+router.delete('/:id', removeMovieValidation, removeMovie);
 
 module.exports = router;
