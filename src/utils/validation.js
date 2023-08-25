@@ -20,7 +20,7 @@ const addMovieValidation = celebrate({
 
 const removeMovieValidation = celebrate({
   params: Joi.object().keys({
-    id: Joi.string().required()
+    _id: Joi.string().hex().required()
   }),
 });
 const updateUserInfoValidation = celebrate({
